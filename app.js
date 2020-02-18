@@ -5,6 +5,7 @@ const view = require("ejs");
 
 const renderTopCompanies = function(req, res) {
   download();
+  setInterval(download, 600000);
   return res.render("top_companies.html");
 };
 
