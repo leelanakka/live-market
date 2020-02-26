@@ -56,8 +56,8 @@ const formats = {
 };
 
 const updateCompanies = function(companies, fieldName) {
+  
   const maxValue = _.get(_.maxBy(companies, fieldName), fieldName, 0);
-  // const minValue = _.get(_.minBy(companies, fieldName), fieldName, 0);
   const minValue =
     fieldName == "ptsC" || "per"
       ? _.get(_.minBy(companies, fieldName), fieldName)
@@ -112,13 +112,7 @@ const updateCompanies = function(companies, fieldName) {
     .attr("x", c => x(c.symbol))
     .merge(rectangles)
     .transition(t)
-    .attr("y", c => {
-      if (y(c[fieldName]) < 0) {
-        return height;
-      } else {
-        return y(c[fieldName]);
-      }
-    })
+    .attr("y", c => y(c[fieldName]))
     .attr("x", c => x(c.symbol))
     .attr("fill", c => colours(c.symbol))
     .attr("width", x.bandwidth)
@@ -142,7 +136,6 @@ const companiesToShow = companies => {
     .sort((c1, c2) => c1.per - c2.per)
     .slice(0, 5);
   return top5Companies.concat(last5Companies);
-  // return top5Companies;
 };
 
 const main = () => {
